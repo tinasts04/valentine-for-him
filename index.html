@@ -5,131 +5,138 @@
 <title>For You</title>
 
 <style>
-/* ================= Base ================= */
+:root {
+  --heart-red: #7a0c0c;
+  --neon-red: #9b111e;
+}
+
+/* ===== Base ===== */
 body {
   margin: 0;
   height: 100vh;
-  background: linear-gradient(145deg, #161616, #222, #161616);
+  background: radial-gradient(circle at top, #1f1f1f, #111);
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: "Segoe UI", Arial, sans-serif;
   overflow: hidden;
-  color: #7a0c0c;
+  color: var(--heart-red);
 }
 
-/* ================= Containers ================= */
 .container {
   position: relative;
   text-align: center;
   z-index: 2;
 }
 
+/* ===== Question Text ===== */
 h1 {
   font-weight: 400;
   letter-spacing: 1px;
-  margin-bottom: 30px;
-  color: #7a0c0c;
+  margin-bottom: 40px;
+  color: var(--heart-red);
 }
 
-/* ================= Buttons ================= */
+/* ===== Buttons ===== */
 .buttons {
   position: relative;
-  height: 110px;
-}
-
-button {
-  padding: 14px 40px;
-  font-size: 16px;
-  background: transparent;
-  color: #9b111e;
-  border-radius: 40px;
-  border: 2px solid #9b111e;
-  cursor: pointer;
-  position: absolute;
-  letter-spacing: 1px;
-  box-shadow:
-    0 0 10px rgba(155,17,30,0.6),
-    0 0 20px rgba(155,17,30,0.4);
-  transition: transform 0.2s ease;
-}
-
-button:active {
-  transform: scale(0.95);
-}
-
-#yes { left: 26%; }
-#no  { right: 26%; }
-
-/* ================= Final Screen ================= */
-.final {
-  display: none;
-  animation: reveal 0.9s ease forwards;
-}
-
-@keyframes reveal {
-  from { opacity: 0; transform: scale(0.96); }
-  to   { opacity: 1; transform: scale(1); }
-}
-
-.message {
-  font-size: 2.2em;
-  font-weight: 400;
-  margin-bottom: 20px;
-  color: #7a0c0c;
-}
-
-/* ================= Photo Layout (around text) ================= */
-.photo-frame {
-  position: relative;
-  width: 360px;
-  height: 300px;
+  width: 320px;
+  height: 80px;
   margin: auto;
 }
 
-.photo-frame img {
-  max-width: 100px;
-  max-height: 100px;
-  object-fit: contain; /* <-- NO CROPPING */
+button {
   position: absolute;
-  border-radius: 10px;
-  box-shadow: 0 8px 26px rgba(0,0,0,0.7);
+  padding: 14px 42px;
+  font-size: 16px;
+  letter-spacing: 1px;
+  background: transparent;
+  color: var(--neon-red);
+  border: 2px solid var(--neon-red);
+  border-radius: 40px;
+  cursor: pointer;
+  box-shadow:
+    0 0 8px rgba(155,17,30,.7),
+    0 0 18px rgba(155,17,30,.4);
+  transition: transform .15s ease, box-shadow .15s ease;
 }
 
-/* positions */
-.tl { top: 0; left: 0; }
-.tr { top: 0; right: 0; }
-.bl { bottom: 0; left: 0; }
-.br { bottom: 0; right: 0; }
-.ml { top: 100px; left: -10px; }
-.mr { top: 100px; right: -10px; }
+button:active {
+  transform: scale(.95);
+}
 
-/* ================= Hearts Rain ================= */
+#yes { left: 10px; }
+#no  { right: 10px; }
+
+/* ===== Final Reveal ===== */
+.final {
+  display: none;
+  animation: reveal .8s ease forwards;
+}
+
+@keyframes reveal {
+  from { opacity: 0; transform: scale(.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.message {
+  font-size: 2.1em;
+  font-weight: 400;
+  margin-bottom: 10px;
+  color: var(--heart-red);
+}
+
+/* ===== Photo Circle around text ===== */
+.photo-ring {
+  position: relative;
+  width: 420px;
+  height: 260px;
+  margin: 30px auto 0;
+}
+
+.photo-ring img {
+  max-width: 90px;
+  max-height: 90px;
+  object-fit: contain;
+  position: absolute;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.7);
+}
+
+/* positions around text */
+.p1 { top: 0; left: 165px; }
+.p2 { top: 40px; right: 0; }
+.p3 { bottom: 40px; right: 0; }
+.p4 { bottom: 0; left: 165px; }
+.p5 { bottom: 40px; left: 0; }
+.p6 { top: 40px; left: 0; }
+
+/* ===== Hearts Rain ===== */
 .heart {
   position: absolute;
-  width: 18px;
-  height: 18px;
-  background: #9b111e;
+  width: 26px;
+  height: 26px;
+  background: var(--heart-red);
   transform: rotate(45deg);
-  animation: fall linear infinite;
-  opacity: 0.7;
+  animation: fall linear forwards;
+  opacity: .75;
 }
 
 .heart::before,
 .heart::after {
   content: "";
   position: absolute;
-  width: 18px;
-  height: 18px;
-  background: #9b111e;
+  width: 26px;
+  height: 26px;
+  background: var(--heart-red);
   border-radius: 50%;
 }
 
-.heart::before { top: -9px; left: 0; }
-.heart::after  { left: -9px; top: 0; }
+.heart::before { top: -13px; left: 0; }
+.heart::after  { left: -13px; top: 0; }
 
 @keyframes fall {
-  from { transform: translateY(-10vh) rotate(45deg); }
+  from { transform: translateY(-15vh) rotate(45deg); }
   to   { transform: translateY(110vh) rotate(45deg); }
 }
 </style>
@@ -137,7 +144,7 @@ button:active {
 
 <body>
 
-<!-- ================= Start ================= -->
+<!-- ===== Start ===== -->
 <div class="container" id="start">
   <h1>Will you be my Valentine?</h1>
   <div class="buttons">
@@ -146,17 +153,19 @@ button:active {
   </div>
 </div>
 
-<!-- ================= Final ================= -->
+<!-- ===== Final ===== -->
 <div class="container final" id="final">
-  <div class="message">You’re my Valentine forever</div>
+  <div class="message">
+    You will always be my Valentine love &#10084;
+  </div>
 
-  <div class="photo-frame">
-    <img src="pic1.jpeg" class="tl">
-    <img src="pic2.jpeg" class="tr">
-    <img src="pic3.jpeg" class="bl">
-    <img src="pic4.jpeg" class="br">
-    <img src="pic5.jpeg" class="ml">
-    <img src="pic6.jpeg" class="mr">
+  <div class="photo-ring">
+    <img src="pic1.jpeg" class="p1">
+    <img src="pic2.jpeg" class="p2">
+    <img src="pic3.jpeg" class="p3">
+    <img src="pic4.jpeg" class="p4">
+    <img src="pic5.jpeg" class="p5">
+    <img src="pic6.jpeg" class="p6">
   </div>
 </div>
 
@@ -166,12 +175,11 @@ const yesBtn = document.getElementById("yes");
 const start = document.getElementById("start");
 const final = document.getElementById("final");
 
-/* NO avoids */
+/* NO button escape */
 function moveNo() {
   noBtn.style.left = Math.random() * 220 + "px";
-  noBtn.style.top  = Math.random() * 70 + "px";
+  noBtn.style.top  = Math.random() * 40 + "px";
 }
-
 noBtn.addEventListener("touchstart", moveNo);
 noBtn.addEventListener("mouseover", moveNo);
 
@@ -182,16 +190,22 @@ yesBtn.onclick = () => {
   heartRain();
 };
 
-/* Hearts rain */
+/* Uniform heart rain */
 function heartRain() {
-  for (let i = 0; i < 45; i++) {
-    const h = document.createElement("div");
-    h.className = "heart";
-    h.style.left = Math.random() * window.innerWidth + "px";
-    h.style.animationDuration = (4 + Math.random() * 3) + "s";
-    document.body.appendChild(h);
-    setTimeout(() => h.remove(), 7000);
+  let delay = 0;
+  for (let i = 0; i < 35; i++) {
+    setTimeout(() => createHeart(), delay);
+    delay += 200;   // stagger = uniform rain
   }
+}
+
+function createHeart() {
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.style.left = Math.random() * window.innerWidth + "px";
+  h.style.animationDuration = (5 + Math.random() * 2) + "s";
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 8000);
 }
 </script>
 
